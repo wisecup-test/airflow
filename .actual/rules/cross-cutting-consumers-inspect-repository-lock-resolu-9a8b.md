@@ -1,0 +1,48 @@
+---
+version: 2
+name: cross-cutting-consumers-inspect-repository-lock-resolu-9a8b
+description: "pkgutil Namespace Package Extension Protocol: Consumers Inspect Repository Lock Resolution Artifact"
+metadata:
+  actual:
+    adr_id: 9a8b7d4a-c217-42e5-acfd-7d8a8eee6f96
+    status: accepted
+    candidate_group_id: 33b401d2-788b-4256-9326-1c1e0373fe57
+    evidence:
+      source: deep
+  scope:
+    root: providers/apache/beam
+    paths:
+      - src/airflow/**
+---
+
+# pkgutil Namespace Package Extension Protocol: Consumers Inspect Repository Lock Resolution Artifact
+
+Scope: applies to `providers/apache/beam/src/airflow/**`.
+
+These rules are ALWAYS ACTIVE for:
+- Shared hierarchical namespace package boundaries across modular provider distributions
+- Public API export locations requiring cross-distribution path aggregation
+
+### Rules
+
+- **R-PEA-001** MUST: Consumers MUST inspect the repository lock or resolution artifact to determine and verify the exact resolved version of all packaging and runtime dependencies prior to implementing namespace protocols.
+
+### Verify
+
+- Discover and run the project static analysis and linting suite to check namespace package initialization modules.
+- Discover and execute cross-provider integration test commands to verify multi-package namespace resolution.
+
+**Accept when:**
+
+- All shared namespace boundary modules successfully extend search paths without shadowing sibling provider packages.
+- Integration tests confirm that classes and functions from separate provider packages are importable under the common namespace.
+
+<enforcement>
+Claude Code MUST NOT skip or defer verification.
+- Verified by: Continuous integration automated test suites
+- Verified by: Static analysis checks verifying namespace boundary initialization protocols
+- Verified by: Peer code review for all new and updated provider distributions
+- Violation handling: Pull requests omitting namespace extension protocols on shared boundaries are blocked from merging.
+- Violation handling: Releases failing multi-package resolution tests are quarantined and rejected.
+- Exception process: Exceptions require documented architectural justification approved by the architecture review board.
+</enforcement>
